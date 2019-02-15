@@ -1,0 +1,53 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+	<table border=1>
+		<tr>
+			<td>번호</td>
+			<td>제목</td>
+			<td>이름</td>
+			<td>날짜</td>
+			<td>수정</td>
+			<td>삭제</td>
+		</tr>
+		<tr th:each="m : ${map.list}">
+			<td th:text="${m.boardNo}" ></td>
+			<td th:text="${m.boardTitle}" ></td>
+			<td th:text="${m.boardUser}" ></td>
+			<td th:text="${m.boardDate}" ></td>
+			<td><a th:href="@{/boardModify(boardNo=${m.boardNo})}">수정</a></td>
+			<td><a th:href="@{/boardRemove(boardNo=${m.boardNo})}" >삭제</a></td>
+		</tr>
+	</table>
+	<table border=1>
+		<tr th:if="${map.currentPage} == null">
+			<td>
+				<a th:href="@{/boardList(currentPage=2)}" >다음</a>
+			</td>
+		</tr>
+		<tr th:unless="${map.currentPage} == null">
+			<div th:if="${map.currentPage} == ${map.lastPage}">
+				<td>
+					<a th:href="@{/boardList}" >처음으로</a>
+				</td>
+				<td>
+					<a th:href="@{/boardList(currentPage=${map.currentPage}-1)}" >이전</a>
+				</td>
+			</div>
+			<div th:unless="${map.currentPage} == ${map.lastPage}">
+				<td th:if="${map.currentPage} < 2">
+				</td>
+				<td th:unless="${map.currentPage} < 2">
+					<a th:href="@{/boardList(currentPage=${map.currentPage}-1)}" >이전</a>
+				</td>
+				<td>
+					<a th:href="@{/boardList(currentPage=${map.currentPage}+1)}" >다음</a>
+				</td>
+				<td>
+					<a th:href="@{/boardList(currentPage=${map.lastPage})}" >끝으로</a>
+				</td>
+			</div>
+		</tr>	
+	</table>
+</body>

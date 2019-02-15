@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cafe.jjdev.springboard.mapper.BoardMapper">
+	<select id="selectBoard" parameterType="cafe.jjdev.springboard.vo.Board" resultType="cafe.jjdev.springboard.vo.Board">
+		SELECT
+			board_no AS boardNo,
+			board_title AS boardTitle,
+			board_user AS boardUser,
+			board_date AS boardDate
+		FROM board
+		WHERE board_no = #{boardNo}
+	</select>
+	
+	<!--
+		<resultMap type="" id=""></resultMap>으로 미리 일치시켜준 후 resultType에 resultMap의 id를 넣어주는 방법도 있음 
+	-->
+	
+	<select id="selectBoardList" parameterType="java.util.Map" resultType="cafe.jjdev.springboard.vo.Board">
+		SELECT
+			board_no AS boardNo,
+			board_title AS boardTitle,
+			board_user AS boardUser,
+			board_date AS boardDate
+		FROM board
+		ORDER BY board_date DESC
+		LIMIT #{currentPage}, #{rowPerPage}
+	</select>
+	
+	<select id="selectBoardCount" resultType="int">
+		SELECT
+			count(*)
+		FROM board
+	</select>
+	
+	<insert id="insertBoard" parameterType="cafe.jjdev.springboard.vo.Board">
+		INSERT INTO board (
+			board_pw,
+			board_title,
+			board_content,
+			board_user,
+			board_date
+		) 
+		VALUES (
+			#{boardPw}, 
+			#{boardTitle},
+			#{boardContent},
+			#{boardUser},
+			<!-- type이 date일경우 curDate(),  datetime일경우 now()-->
+			curDate()
+		)
+	</insert>
+	
+	<delete id="deleteBoard" parameterType="cafe.jjdev.springboard.vo.Board">
+		DELETE
+		FROM board
+		WHERE board_no = #{boardNo}
+		AND board_pw = #{boardPw}
+	</delete>
+	
+	<update id="updateBoard" parameterType="cafe.jjdev.springboard.vo.Board">
+		UPDATE board SET
+			board_title = #{boardTitle},
+			board_user = #{boardUser},
+			board_date = curDate()
+		WHERE board_no = #{boardNo}
+	</update>
+</mapper>

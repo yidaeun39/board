@@ -69,4 +69,15 @@ public class BoardController {
 	  return "redirect:/boardList";
   }
   
+  @GetMapping(value="/index")
+  public String main() {
+	  return "index";
+  }
+  
+  @GetMapping(value="/boardDetail")
+  public String boardDetail(Board board, Model model) {
+	  Board resultboard = boardService.getBoard(board.getBoardNo());
+	  model.addAttribute("board", resultboard);
+	  return "boardDetail";
+  }
 }

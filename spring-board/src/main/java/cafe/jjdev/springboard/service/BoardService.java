@@ -60,5 +60,4 @@ public class BoardService {
 	public int modifyBoard(Board board) {
 		return boardMapper.updateBoard(board);
 	}
-
 }

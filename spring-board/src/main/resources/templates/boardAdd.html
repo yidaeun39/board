@@ -1,27 +1,46 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+	<script>
+		
+	</script>
+	
 </head>
 <body>
+<h1 class="center">BOARD ADD</h1>
+<div class="center">
 	<form th:action="@{/boardAdd}" method="post">
-		<table>
+		<table class="center">
 			<tr>
-				<td>
-					비밀번호 : <input type="text" name="boardPw">
-				</td>
+				<th>이름</th>
 			</tr>
 			<tr>
 				<td>
-					제목 : <input type="text" name="boardTitle">
+					<input type="text" name="boardUser">
 				</td>
 			</tr>
 			<tr>
-				<td>
-					내용 : <input type="text" name="boardContent">
-				</td>
+				<th>제목</th>
 			</tr>
 			<tr>
 				<td>
-					이름 : <input type="text" name="boardUser">
+					<input type="text" name="boardTitle">
+				</td>
+			</tr>
+			<tr>
+				<th>내용</th>
+			</tr>
+			<tr>
+				<td>
+					<textarea rows="10" cols="80" name="boardContent"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<th>비밀번호</th>
+			</tr>
+			<tr>
+				<td>
+					<input type="text" name="boardPw">
 				</td>
 			</tr>
 			<tr>
@@ -29,6 +48,12 @@
 					<input type="submit" th:value="등록">
 				</td>
 			</tr>
+			<tr>
+				<td>
+					<a th:href="@{/boardList}"><button class="button button3 center" th:text="목록으로" /></a>
+				</td>
+			</tr>
 		</table>
 	</form>
+</div>
 </body>

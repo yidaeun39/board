@@ -1,51 +1,54 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
 </head>
 <body>
-	<table border=1>
+	<h1 class="center">BOARD LIST</h1>
+	<table th:id="customers" class="center">
 		<tr>
-			<td>번호</td>
-			<td>제목</td>
-			<td>이름</td>
-			<td>날짜</td>
-			<td>수정</td>
-			<td>삭제</td>
+			<th>번호</th>
+			<th>제목</th>
+			<th>이름</th>
+			<th>날짜</th>
+			<th>수정</th>
+			<th>삭제</th>
 		</tr>
 		<tr th:each="m : ${map.list}">
 			<td th:text="${m.boardNo}" ></td>
-			<td th:text="${m.boardTitle}" ></td>
+			<td><a th:href="@{/boardDetail(boardNo=${m.boardNo})}" th:text="${m.boardTitle}" /></td>
 			<td th:text="${m.boardUser}" ></td>
 			<td th:text="${m.boardDate}" ></td>
 			<td><a th:href="@{/boardModify(boardNo=${m.boardNo})}">수정</a></td>
 			<td><a th:href="@{/boardRemove(boardNo=${m.boardNo})}" >삭제</a></td>
 		</tr>
 	</table>
-	<table border=1>
+	<a th:href="@{/boardAdd}"><button class="button button3" th:text="등록"/></a>
+	<table th:id="customers">
 		<tr th:if="${map.currentPage} == null">
 			<td>
-				<a th:href="@{/boardList(currentPage=2)}" >다음</a>
+				<a th:href="@{/boardList(currentPage=2)}" ><button class="button button3" th:text="다음"/></a>
 			</td>
 		</tr>
 		<tr th:unless="${map.currentPage} == null">
 			<div th:if="${map.currentPage} == ${map.lastPage}">
 				<td>
-					<a th:href="@{/boardList}" >처음으로</a>
+					<a th:href="@{/boardList}" ><button class="button button3" th:text="처음으로"/></a>
 				</td>
 				<td>
-					<a th:href="@{/boardList(currentPage=${map.currentPage}-1)}" >이전</a>
+					<a th:href="@{/boardList(currentPage=${map.currentPage}-1)}" ><button class="button button3" th:text="이전"/></a>
 				</td>
 			</div>
 			<div th:unless="${map.currentPage} == ${map.lastPage}">
 				<td th:if="${map.currentPage} < 2">
 				</td>
 				<td th:unless="${map.currentPage} < 2">
-					<a th:href="@{/boardList(currentPage=${map.currentPage}-1)}" >이전</a>
+					<a th:href="@{/boardList(currentPage=${map.currentPage}-1)}" ><button class="button button3" th:text="이전"/></a>
 				</td>
 				<td>
-					<a th:href="@{/boardList(currentPage=${map.currentPage}+1)}" >다음</a>
+					<a th:href="@{/boardList(currentPage=${map.currentPage}+1)}" ><button class="button button3" th:text="다음"/></a>
 				</td>
 				<td>
-					<a th:href="@{/boardList(currentPage=${map.lastPage})}" >끝으로</a>
+					<a th:href="@{/boardList(currentPage=${map.lastPage})}" ><button class="button button3" th:text="끝으로"/></a>
 				</td>
 			</div>
 		</tr>	

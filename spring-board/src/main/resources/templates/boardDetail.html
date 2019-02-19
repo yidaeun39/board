@@ -4,6 +4,7 @@
 </head>
 <body>
 <h1 class="center">BOARD DETAIL</h1>
+<h1 class="indexText"><a class="aindex" th:href="@{/index}">INDEX</a></h1>
 	<div class="center">
 		<table class="center">
 			<tr>
@@ -37,14 +38,15 @@
 			</tr>
 			<tr>
 				<td>
-					<input type="submit" th:value="수정">
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<a th:href="@{/boardList}"><button class="button button3 center" th:text="목록으로" /></a>
+					<div class="btn-group">
+  						<a th:href="@{/boardModify(boardNo=${board.boardNo})}"><button class="button button3" th:text="수정"></button></a>
+  						<a th:href="@{/boardRemove(boardNo=${board.boardNo})}"><button class="button button3" th:text="삭제"></button></a>
+  					</div>
 				</td>
 			</tr>
 		</table>
+		<div class="center">
+			<a th:href="@{/boardList}"><button class="button button3 center" th:text="목록으로"></button></a>
+		</div>
 	</div>
 </body>

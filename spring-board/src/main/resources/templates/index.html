@@ -1,0 +1,23 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+
+</head>
+<body>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<div class="index center">
+		안녕하세요!
+	</div>
+	<br/>
+	<div class="index center">
+		<a th:href="@{/boardList}"><button class="button button3 center" th:text="BOARDLIST"></button></a>
+	</div>
+	<br/>
+	<div class="index center">
+		<a th:href="@{/boardAdd}"><button class="button button3 center" th:text="BOARDADD"></button></a>
+	</div>
+</body>
+</html>

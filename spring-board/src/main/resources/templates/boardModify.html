@@ -1,13 +1,43 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+		//이름 정규식
+		var idJ = /^[a-z0-9]{4,12}$/;
+		
+		$(document).ready(function() {
+			// 등록 버튼을 눌렀을 때
+			$('#submitBtn').click(function() {
+				// 이름 자리가 공백인지 확인
+				if($('#boardUser').val() == "") {
+					alert("이름을 꼭 입력하세요!!");
+					return false;
+				} else {
+					if(!idJ.test($('#boardUser').val())) {
+						alert("이름은 4~12자리 소문자 영문&숫자로 입력하셔야 합니다.");
+						return false;
+					}
+				}
+				if($('#boardTitle').val() == "") {
+					alert("제목을 꼭 입력하세요!!");
+					return false;
+				}
+				
+				if($('#boardContent').val() == "") {
+					alert("내용을 꼭 입력하세요!!");
+					return false;
+				}
+			});
+		});		
+	</script>
 </head>
 <body>
-	<h1>BOARD MODIFY</h1>
+	<h1 class="center">BOARD MODIFY</h1>
+	<h1 class="indexText"><a class="aindex" th:href="@{/index}">INDEX</a></h1>
 	<div class="center">
 	<form th:action="@{/boardModify}" method="post">
-		<table>
+		<table class="center">
 			<tr>
 				<td>
 					<span th:text="${board.boardNo}">
@@ -17,12 +47,17 @@
 			</tr>
 			<tr>
 				<td>
-					제목 : <input type="text" th:name="boardTitle" th:value="${board.boardTitle}">
+					이름 : <input type="text" id="boardUser" th:name="boardUser" th:value="${board.boardUser}">
 				</td>
 			</tr>
 			<tr>
 				<td>
-					이름 : <input type="text" th:name="boardUser" th:value="${board.boardUser}">
+					제목 : <input type="text" id="boardTitle" th:name="boardTitle" th:value="${board.boardTitle}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					내용 : <textarea rows="10" cols="80" id="boardContent" th:name="boardContent" th:text="${board.boardContent}"></textarea>
 				</td>
 			</tr>
 			<tr>
@@ -35,10 +70,13 @@
 			</tr>
 			<tr>
 				<td>
-					<input type="submit" th:value="수정">
+					<input type="submit" id="submitBtn" th:value="수정">
 				</td>
 			</tr>
 		</table>
 	</form>
+	<div class="center">
+		<a th:href="@{/boardList}"><button class="button button3 center" th:text="목록으로"></button></a>
+	</div>
 	</div>
 </body>

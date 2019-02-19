@@ -22,7 +22,7 @@ public class BoardController {
 	@GetMapping(value="/boardList")
 	public String boardList(Model model,
     						// required -> 넘겨받지 않을 수도 있음, defaultValue -> 그럴경우 1로
-    						@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
+    						@RequestParam(value="currentPage", required=false, defaultValue="0") int currentPage) {
 		Map<String, Object> returnMap = boardService.getBoardList(currentPage);
 		model.addAttribute("map", returnMap);
         return "boardList";
@@ -44,7 +44,8 @@ public class BoardController {
   @GetMapping(value="/boardRemove")
   public String boardRemove(@RequestParam(value="boardNo") int boardNo, Model model) {
 	  									// 이름이 같으면 value 생략 가능
-	  model.addAttribute("boardNo", boardNo);
+	  Board resultboard = boardService.getBoard(boardNo);
+	  model.addAttribute("board", resultboard);
 	  return "boardRemove";
   }
   

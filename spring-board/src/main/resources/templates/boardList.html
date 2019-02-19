@@ -1,56 +1,58 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+	$(document).ready(function() {
+		$('#previousBtn').click(function() {
+			alert("가장 처음 페이지입니다.");
+			return false;
+		});
+		
+		$('#nextBtn').click(function() {
+			alert("가장 마지막 페이지입니다.");
+			return false;
+		});
+	});
+	</script>
 </head>
 <body>
-	<h1 class="center">BOARD LIST</h1>
+<h1 class="center">BOARD LIST</h1>
+<h1 class="indexText"><a class="aindex" th:href="@{/index}">INDEX</a></h1>
+<div class="center">
 	<table th:id="customers" class="center">
 		<tr>
 			<th>번호</th>
 			<th>제목</th>
 			<th>이름</th>
 			<th>날짜</th>
-			<th>수정</th>
-			<th>삭제</th>
 		</tr>
 		<tr th:each="m : ${map.list}">
 			<td th:text="${m.boardNo}" ></td>
-			<td><a th:href="@{/boardDetail(boardNo=${m.boardNo})}" th:text="${m.boardTitle}" /></td>
+			<td><a th:href="@{/boardDetail(boardNo=${m.boardNo})}" th:text="${m.boardTitle}"></a></td>
 			<td th:text="${m.boardUser}" ></td>
 			<td th:text="${m.boardDate}" ></td>
-			<td><a th:href="@{/boardModify(boardNo=${m.boardNo})}">수정</a></td>
-			<td><a th:href="@{/boardRemove(boardNo=${m.boardNo})}" >삭제</a></td>
 		</tr>
 	</table>
-	<a th:href="@{/boardAdd}"><button class="button button3" th:text="등록"/></a>
-	<table th:id="customers">
-		<tr th:if="${map.currentPage} == null">
-			<td>
-				<a th:href="@{/boardList(currentPage=2)}" ><button class="button button3" th:text="다음"/></a>
-			</td>
-		</tr>
-		<tr th:unless="${map.currentPage} == null">
+	<a th:href="@{/boardAdd}"><button class="button button3" th:text="등록"></button></a>
+	<br/>
+	<div class="btn-group">
+		<a th:href="@{/boardList}" ><button class="button button3" id="firstBtn" th:text="처음으로"></button></a>
+		<div th:if="${map.currentPage} == 0 or ${map.currentPage} == null">
+			<a th:href="@{/boardList(currentPage=${map.currentPage}-1)}" ><button class="button button3" id="previousBtn" th:text="이전"></button></a>
+			<a th:href="@{/boardList(currentPage=${map.currentPage}+1)}" ><button class="button button3" th:text="다음"></button></a>
+		</div>
+		<div th:unless="${map.currentPage} == 0 or ${map.currentPage} == null">
 			<div th:if="${map.currentPage} == ${map.lastPage}">
-				<td>
-					<a th:href="@{/boardList}" ><button class="button button3" th:text="처음으로"/></a>
-				</td>
-				<td>
-					<a th:href="@{/boardList(currentPage=${map.currentPage}-1)}" ><button class="button button3" th:text="이전"/></a>
-				</td>
+				<a th:href="@{/boardList(currentPage=${map.currentPage}-1)}" ><button class="button button3" th:text="이전"></button></a>
+				<a th:href="@{/boardList(currentPage=${map.currentPage}+1)}" ><button class="button button3" id="nextBtn" th:text="다음"></button></a>
 			</div>
 			<div th:unless="${map.currentPage} == ${map.lastPage}">
-				<td th:if="${map.currentPage} < 2">
-				</td>
-				<td th:unless="${map.currentPage} < 2">
-					<a th:href="@{/boardList(currentPage=${map.currentPage}-1)}" ><button class="button button3" th:text="이전"/></a>
-				</td>
-				<td>
-					<a th:href="@{/boardList(currentPage=${map.currentPage}+1)}" ><button class="button button3" th:text="다음"/></a>
-				</td>
-				<td>
-					<a th:href="@{/boardList(currentPage=${map.lastPage})}" ><button class="button button3" th:text="끝으로"/></a>
-				</td>
+				<a th:href="@{/boardList(currentPage=${map.currentPage}-1)}" ><button class="button button3" th:text="이전"></button></a>
+				<a th:href="@{/boardList(currentPage=${map.currentPage}+1)}" ><button class="button button3" th:text="다음"></button></a>
 			</div>
-		</tr>	
-	</table>
+		</div>
+		<a th:href="@{/boardList(currentPage=${map.lastPage})}" ><button class="button button3" id="lastBtn" th:text="끝으로"></button></a>	
+	</div>
+</div>
 </body>

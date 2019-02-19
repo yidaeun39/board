@@ -4,7 +4,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>
 		//이름 정규식
-		var idJ = /^[a-z0-9]{4,12}$/;
+		var idJ = /^[A-Za-z0-9]{4,12}$/;
 		// 비밀번호 정규식
 		var pwJ = /^[A-Za-z0-9]{4,12}$/; 
 		
@@ -14,29 +14,35 @@
 				// 이름 자리가 공백인지 확인
 				if($('#boardUser').val() == "") {
 					alert("이름을 꼭 입력하세요!!");
+					$('#boardUser').focus();
 					return false;
 				} else {
 					if(!idJ.test($('#boardUser').val())) {
-						alert("이름은 4~12자리 소문자 영문&숫자로 입력하셔야 합니다.");
+						alert("이름은 4~12자리 영문&숫자로 입력하셔야 합니다.");
+						$('#boardUser').focus();
 						return false;
 					}
 				}
 				if($('#boardTitle').val() == "") {
 					alert("제목을 꼭 입력하세요!!");
+					$('#boardTitle').focus();
 					return false;
 				}
 				
 				if($('#boardContent').val() == "") {
 					alert("내용을 꼭 입력하세요!!");
+					$('#boardContent').focus();
 					return false;
 				}
 				
 				if($('#boardPw').val() == "") {
 					alert("비밀번호를 꼭 입력하세요!!");
+					$('#boardPw').focus();
 					return false;
 				} else {
 					if(!pwJ.test($('#boardPw').val())) {
 						alert("비밀번호는 4~12자리 영문&숫자로 입력하셔야 합니다.");
+						$('#boardPw').focus();
 						return false;
 					}
 				}

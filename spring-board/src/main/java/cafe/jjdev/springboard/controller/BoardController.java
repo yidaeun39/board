@@ -1,6 +1,7 @@
 package cafe.jjdev.springboard.controller;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import cafe.jjdev.springboard.service.BoardService;
 import cafe.jjdev.springboard.vo.Board;
 import cafe.jjdev.springboard.vo.BoardRequest;
+import cafe.jjdev.springboard.vo.Boardfile;
 
 @Controller
 public class BoardController {
@@ -92,7 +94,10 @@ public class BoardController {
   @GetMapping(value="/boardDetail")
   public String boardDetail(Board board, Model model) {
 	  Board resultboard = boardService.getBoard(board.getBoardNo());
+	  List<Boardfile> boardfile = boardService.addFile(board);
 	  model.addAttribute("board", resultboard);
+	  // 업로드한 이미지 정보가 담겨있는 list를 화면으로 보냄
+	  model.addAttribute("boardfile", boardfile);
 	  return "boardDetail";
   }
 }

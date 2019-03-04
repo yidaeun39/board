@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 public class BoardRequest {
-	 private int boardNo;
+	 	private int boardNo;
 	    private String boardPw;
 	    private String boardTitle;
 	    private String boardContent;

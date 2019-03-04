@@ -20,4 +20,13 @@
 			#{fileSize}
 		)
 	</insert>
+	
+	<select id="boardfileSelect" parameterType="cafe.jjdev.springboard.vo.Board" resultType="cafe.jjdev.springboard.vo.Boardfile">
+		SELECT
+			file_name AS fileName,
+			file_ext AS fileExt,
+			file_size AS fileSize
+		FROM boardfile
+		WHERE board_no = #{boardNo}
+	</select>
 </mapper>

@@ -75,6 +75,7 @@ public class BoardService {
 		board.setBoardDate(boardRequest.getBoardDate());
 		boardMapper.insertBoard(board); 	// 쿼리를 통해 boardNo 값 구할 수 있음
 		System.out.println("selectKey 제대로 되나????? -> " + board.getBoardNo());
+		
 		// 화면에서 입력받은 files를 list에 저장
 		List<MultipartFile> files = boardRequest.getFiles();
 		// files만큼 for문 반복
@@ -121,5 +122,10 @@ public class BoardService {
 	
 	public int modifyBoard(Board board) {
 		return boardMapper.updateBoard(board);
+	}
+	
+	// 저장되어 있는 이미지를 불러오는 SELECT문을 실행하는 쿼리
+	public List<Boardfile> addFile(Board board) {
+		return boardfileMapper.boardfileSelect(board);
 	}
 }

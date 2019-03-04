@@ -24,6 +24,12 @@
 				</td>
 			</tr>
 			<tr>
+				<td th:each="b : ${boardfile}">
+					<img th:src="'/img/'+@{${b.fileName}+'.'+${b.fileExt}}"><br/>
+					크기 : <span th:text="${b.fileSize}"></span>
+				</td>
+			</tr>
+			<tr>
 				<td>
 					내용 : <textarea rows="10" cols="80" th:text="${board.boardContent}" readonly></textarea>
 				</td>

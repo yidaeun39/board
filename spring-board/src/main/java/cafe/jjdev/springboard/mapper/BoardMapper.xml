@@ -36,6 +36,13 @@
 	</select>
 	
 	<insert id="insertBoard" parameterType="cafe.jjdev.springboard.vo.Board">
+		<!--
+			order="BEFORE" - insert쿼리 실행전에 자동증가 값 
+			order="AFTER" - insert쿼리 실행후에 자동증가 값
+		-->
+		<selectKey resultType="int" keyProperty="boardNo" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
 		INSERT INTO board (
 			board_pw,
 			board_title,

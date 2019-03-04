@@ -1,6 +1,10 @@
 package cafe.jjdev.springboard.controller;
 
+import java.io.IOException;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import cafe.jjdev.springboard.service.BoardService;
 import cafe.jjdev.springboard.vo.Board;
+import cafe.jjdev.springboard.vo.BoardRequest;
 
 @Controller
 public class BoardController {
@@ -28,16 +33,25 @@ public class BoardController {
         return "boardList";
 	}
 	
+	// 보드 입력 VIEW 요청
 	@GetMapping(value="/boardAdd")
 		public String boardAdd() {
 			return "boardAdd";
 	}
 
    @PostMapping(value="/boardAdd")
-   public String boardAdd(Board board) {
+   public String boardAdd(BoardRequest boardRequest, HttpSession session) {
+	   // Servlet API는 Controller에서만 사용해야 함.
 	   // 커맨드 객체 사용을 위해 -> 필드 name = input type의 name이 같아야 setter 호출 가능함.
-	   int result = boardService.addBoard(board);
-	   System.out.println("INSERT 쿼리 실행 여부 -> " + result);
+	   /*
+	    * Service에서
+	    * 1. Board안에 fileList를 분해하여 DB에 들어갈 수 있는 형태로 작업해야 함
+	    * 2. 파일 저장 : 파일의 경로가 필요
+	    */
+	   System.out.println(boardRequest.getFiles());
+	   String path = session.getServletContext().getRealPath("/img");
+	   System.out.println("path값이 뭘까? -> "+ path);
+	   boardService.addBoard(boardRequest, path);
 	   return "redirect:/boardList"; // 글입력후 "/boardList"로 리다이렉트(재요청)
    }
    

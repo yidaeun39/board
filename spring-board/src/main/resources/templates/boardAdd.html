@@ -13,8 +13,11 @@
 			$('#submitBtn').click(function() {
 				// 이름 자리가 공백인지 확인
 				if($('#boardUser').val() == "") {
+					// 시스템 창 호출
 					alert("이름을 꼭 입력하세요!!");
 					$('#boardUser').focus();
+					// input창 안에 원하는 문구 출력
+					$('#boardUser').attr('placeholder','한글자 이상 입력해주세요.');
 					return false;
 				} else {
 					if(!idJ.test($('#boardUser').val())) {
@@ -55,7 +58,7 @@
 <h1 class="center">BOARD ADD</h1>
 <h1 class="indexText"><a class="aindex" th:href="@{/index}">INDEX</a></h1>
 <div class="center">
-	<form th:action="@{/boardAdd}" method="post">
+	<form th:action="@{/boardAdd}" method="post" enctype="multipart/form-data">
 		<table class="center">
 			<tr>
 				<th>이름</th>
@@ -88,6 +91,11 @@
 				<td>
 					<input type="text" id="boardPw" name="boardPw">
 					<div id="pwCheck"></div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="file" id="files" name="files"><br>
 				</td>
 			</tr>
 			<tr>
